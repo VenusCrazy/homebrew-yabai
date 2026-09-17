@@ -2,6 +2,7 @@ class Yabai < Formula
   desc "Tiling window manager for macOS (macOS 27 / Golden Gate fork)"
   homepage "https://github.com/VenusCrazy/yabai"
   url "https://github.com/VenusCrazy/yabai/archive/refs/tags/v7.1.25-macos27.tar.gz"
+  version "7.1.25-macos27"
   sha256 "66522225c25bba301c81cbd5f00a615e292fd6ad42378232b95dfee8e228792f"
   license "MIT"
   head "https://github.com/VenusCrazy/yabai.git", branch: "master"
@@ -11,14 +12,12 @@ class Yabai < Formula
   def install
     system "make", "-j1", "install"
 
-    identities = Utils.safe_popen_read("security", "find-identity", "-p", "codesigning")
-    if identities.include?("yabai-cert")
-      system "codesign", "--force", "--sign", "yabai-cert", "#{buildpath}/bin/yabai"
-    else
-      system "codesign", "--force", "--sign", "-", "#{buildpath}/bin/yabai"
+    binary = "#{buildpath}/bin/yabai"
+    unless quiet_system("codesign", "--force", "--sign", "yabai-cert", binary)
+      system "codesign", "--force", "--sign", "-", binary
     end
 
-    bin.install "#{buildpath}/bin/yabai"
+    bin.install binary
     (pkgshare/"examples").install "#{buildpath}/examples/yabairc"
     (pkgshare/"examples").install "#{buildpath}/examples/skhdrc"
     man1.install "#{buildpath}/doc/yabai.1"
