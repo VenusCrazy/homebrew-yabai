@@ -22,6 +22,16 @@ brew install --HEAD venuscrazy/yabai/yabai
 
 ## After installing
 
+0. If you have a `yabai-cert` code-signing certificate, re-sign the binary so
+   macOS keeps your Accessibility grant across upgrades:
+
+   ```sh
+   codesign --force --sign yabai-cert "$(command -v yabai)"
+   ```
+
+   Without this, Homebrew's ad-hoc build produces a new signature each upgrade
+   and you will have to re-grant Accessibility every time.
+
 1. Grant Accessibility to the installed binary in
    *System Settings → Privacy & Security → Accessibility*.
 

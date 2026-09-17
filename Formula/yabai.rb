@@ -13,9 +13,7 @@ class Yabai < Formula
     system "make", "-j1", "install"
 
     binary = "#{buildpath}/bin/yabai"
-    unless quiet_system("codesign", "--force", "--sign", "yabai-cert", binary)
-      system "codesign", "--force", "--sign", "-", binary
-    end
+    system "codesign", "--force", "--sign", "-", binary
 
     bin.install binary
     (pkgshare/"examples").install "#{buildpath}/examples/yabairc"
@@ -26,6 +24,12 @@ class Yabai < Formula
   def caveats
     <<~EOS
       This is the macOS 27 (Golden Gate) fork of yabai.
+
+      Binary re-signing: builds are signed ad-hoc. If you have a "yabai-cert"
+      code-signing certificate, re-sign so macOS keeps your Accessibility grant
+      across upgrades (otherwise re-grant it after every `brew upgrade`):
+
+          codesign --force --sign yabai-cert "$(command -v yabai)"
 
       macOS 27 does not auto-load the scripting-addition, so configure it once.
 
