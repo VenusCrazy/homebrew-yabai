@@ -1,9 +1,9 @@
 class Yabai < Formula
   desc "Tiling window manager for macOS (macOS 27 / Golden Gate fork)"
   homepage "https://github.com/VenusCrazy/yabai"
-  url "https://github.com/VenusCrazy/yabai/archive/refs/tags/v7.1.25-macos27.tar.gz"
+  url "https://github.com/VenusCrazy/yabai/archive/refs/tags/v7.1.26-macos27.tar.gz"
   version "7.1.25-macos27"
-  sha256 "66522225c25bba301c81cbd5f00a615e292fd6ad42378232b95dfee8e228792f"
+  sha256 "615e66e45bf21979a230364e57661ac4789899f5ba6a2a8d990884bf07d986d4"
   license "MIT"
   head "https://github.com/VenusCrazy/yabai.git", branch: "master"
 
