@@ -7,7 +7,7 @@ class Yabai < Formula
   license "MIT"
   head "https://github.com/VenusCrazy/yabai.git", branch: "master"
 
-  depends_on macos: :big_sur
+  depends_on :macos
 
   def install
     system "make", "-j1", "install"
